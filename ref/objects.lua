@@ -1,0 +1,508 @@
+---@meta
+
+---Returns a table containing info on all connected players.
+---@return Player[] playerList Table of players connected to server.
+function server.getPlayers() end
+
+---@class Player
+---@field id integer ID of player.
+---@field name string Name of player.
+---@field admin boolean True if player is admin.
+---@field auth boolean True if player is authed.
+---@field steam_id integer SteamID of player.
+
+---Returns the player name of the specified peer as it appears on the server.
+---@param peerId integer ID of player to get name of.
+---@return string name Name of searched player.
+---@return boolean isSuccess True if function successfully executed.
+function server.getPlayerName(peerId) end
+---Gets the world position of a specified peer as a matrix.
+---@param peerId integer ID of player to get transform of.
+---@return Transform tf Transform of player.
+---@return boolean isSuccess True if function successfully executed.
+function server.getPlayerPos(peerId) end
+---Teleports the specified player to the target world position.
+---@param peerId integer ID of player being set their transform.
+---@param newTf Transform New transform of player.
+---@return boolean isSuccess True if the transform was successfully set.
+function server.setPlayerPos(peerId, newTf) end
+---Returns the forward vector of the specified player's camera.
+---@param peerId integer ID of player we want to get look direction of.
+---@return number x Rotation on the X axis in radians.
+---@return number y Rotation on the Y axis in radians.
+---@return number z Rotation on the Z axis in radians.
+---@return boolean isSuccess True if function successfully executed.
+function server.getPlayerLookDirection(peerId) end
+---Get a specified player's character object ID. Every player has an object ID which can be referenced by the methods related to objects.
+---@param peerId integer ID of player to get object ID of.
+---@return integer objectId Object ID of player.
+---@return boolean isSuccess True if function successfully executed.
+function server.getPlayerCharacterID(peerId) end
+
+---@alias ObjectType
+---| 0 none
+---| 1 character
+---| 2 crateSmall
+---| 3 collectable (Not spawnable)
+---| 4 basketball
+---| 5 television
+---| 6 barrel
+---| 7 schematic (Not spawnable)
+---| 8 debris (Not spawnable)
+---| 9 chair
+---| 10 trolleyFood
+---| 11 trolleyMed
+---| 12 clothing (Not spawnable)
+---| 13 officeChair
+---| 14 book
+---| 15 bottle
+---| 16 fryingpan
+---| 17 mug
+---| 18 saucepan
+---| 19 stool
+---| 20 telescope
+---| 21 log
+---| 22 bin
+---| 23 book2
+---| 24 loot
+---| 25 blueBarrel
+---| 26 buoyancyRing
+---| 27 container
+---| 28 gasCanister
+---| 29 pallet
+---| 30 storageBin
+---| 31 fireExtinguisher
+---| 32 trolleyTool
+---| 33 cafetiere
+---| 34 drawersTools
+---| 35 glass
+---| 36 microwave
+---| 37 plate
+---| 38 boxClosed
+---| 39 boxOpen
+---| 40 deskLamp
+---| 41 eraserBoard
+---| 42 folder
+---| 43 funnel
+---| 44 lamp
+---| 45 microscope
+---| 46 notebook
+---| 47 penMarker
+---| 48 pencil
+---| 49 scales
+---| 50 scienceBeaker
+---| 51 scienceCylinder
+---| 52 scienceFlask
+---| 53 tub1
+---| 54 tub2
+---| 55 filestack
+---| 56 barrelToxic
+---| 57 flare
+---| 58 fire
+---| 59 animal
+---| 60 mapLabel (Not spawnable)
+---| 61 iceberg (Not spawnable)
+---| 62 gunFlare
+---| 63 vehicleFlare
+---| 64 ammoShell
+---| 65 binoculars
+---| 66 C4
+---| 67 grenade
+---| 68 vehicleFlare
+---| 69 coal
+---| 70 meteorite
+---| 71 glowstick
+---| 72 creature
+
+---Spawn the specified object at the specified world position.
+---@param spawnTf Transform Transform where to spawn object.
+---@param objectType ObjectType Type of object to spawn.
+---@return integer objectId ID of object spawned.
+---@return boolean isSuccess True if function successfully executed.
+function server.spawnObject(spawnTf, objectType) end
+---Spawn a world fire at the specified world position matrix. parentVehicleID should be 0 if the fire should not move relative to a vehicle.
+---Fires will slowly grow until they reach a magnitude of 1.
+---@param spawnTf Transform Transform where fire should be spawned.
+---@param fireSize number Size of fire.
+---@param fireMagnitude number Magnitude of fire. [0-1]
+---@param isLit boolean True if fire is providing light.
+---@param isExplosive boolean True if fire is explosive.
+---@param parentVehicleID integer ID of parent vehicle that fire should be parented to.
+---@param explosionMagnitude number Magnitude of explosion if isExplosive is true.
+---@return integer objectId Object ID of fire.
+---@return boolean isSuccess True if function successfully executed.
+function server.spawnFire(spawnTf, fireSize, fireMagnitude, isLit, isExplosive, parentVehicleID, explosionMagnitude) end
+
+---@alias OutfitType
+---| 0 none
+---| 1 worker
+---| 2 fishing
+---| 3 waiter
+---| 4 swimsuit
+---| 5 military
+---| 6 office
+---| 7 police
+---| 8 science
+---| 9 medical
+---| 10 wetsuit
+---| 11 civilian
+
+---Spawn a character object with an optional outfit at the specified world position.
+---@param spawnTf Transform Transform of where to spawn character.
+---@param outfitType? OutfitType Type of outfit player should spawn with.
+---@return integer objectId Object ID of spawned character.
+---@return boolean isSuccess True if function successfully executed.
+function server.spawnCharacter(spawnTf, outfitType) end
+
+---@alias AnimalType
+---| 0 shark
+---| 1 whale
+---| 4 kraken
+
+---Spawn a scenery animal at the specified world position.
+---@param spawnTf Transform Transform of animal to spawn.
+---@param animalType AnimalType Type of animal to spawn.
+---@param sizeMultiplier number Size multiplier of animal.
+---@return integer objectId Object ID of spawned animal.
+---@return boolean isSuccess True if function successfully executed.
+function server.spawnAnimal(spawnTf, animalType, sizeMultiplier) end
+
+---@alias CreatureType
+---| 0 badgerCommon
+---| 1 bearGrizzly
+---| 2 bearBlack
+---| 3 bearPolar
+---| 4 chickenBarnevelder
+---| 5 chickenMarans
+---| 6 chickenOrpingtonFowl
+---| 7 chickenSussexFowl
+---| 8 cowAngus
+---| 9 cowHereford
+---| 10 cowHighland
+---| 11 cowHolstein
+---| 12 sasquatch
+---| 13 yeti
+---| 14 deerRedF
+---| 15 deerRedM
+---| 16 deerSikaF
+---| 17 deerSikaM
+---| 18 dogBeagle
+---| 19 dogBorderCollie
+---| 20 dogBoxer
+---| 21 dogCorgi
+---| 22 dogDachschund
+---| 23 dogDalmatian
+---| 24 dogDobermann
+---| 25 dogGermanShepherd
+---| 26 dogGreyhound
+---| 27 dogJackRussell
+---| 28 dogLabrador
+---| 29 dogNewfoundland
+---| 30 dogPug
+---| 31 dogShiba
+---| 32 dogSiberianHusky
+---| 33 dogStBernard
+---| 34 dogVizsla
+---| 35 dogYorkshireTerrier
+---| 36 foxRed
+---| 37 foxArctic
+---| 38 goatAlpine
+---| 39 goatBengal
+---| 40 goatOberhasli
+---| 41 goatSaanen
+---| 42 hareArctic
+---| 43 hareIrish
+---| 44 hareMountain
+---| 45 horseClydesdale
+---| 46 horseFriesian
+---| 47 horseHaflinger
+---| 48 horseWelara
+---| 49 muntjacF
+---| 50 muntjacM
+---| 51 penguinGentoo
+---| 52 pigAngelnSaddleback
+---| 53 pigOldSpot
+---| 54 pigTamworth
+---| 55 pigYorkshire
+---| 56 sealPolar
+---| 57 sheepBlackNose
+---| 58 sheepHighlander
+---| 59 sheepMule
+---| 60 wildcatScottish
+---| 61 wolfArctic
+---| 62 wolfCostal
+---| 63 wolfPlains
+---| 64 zombieMale
+---| 65 zombieMaleA
+---| 66 zombieMaleB
+---| 67 zombieMaleC
+---| 68 zombieMaleD
+---| 69 zombieMaleE
+---| 70 zombieMaleF
+---| 71 zombieMaleG
+---| 72 zombieMaleNurse
+---| 73 zombieMaleArctic
+---| 74 zombieMaleFirefighter
+---| 75 zombieMalePilot
+---| 76 zombieMalePolice
+---| 77 zombieMaleRanger
+---| 78 zombieMaleScuba
+---| 79 zombieMaleTreeSurgeon
+---| 80 zombieFemale
+---| 81 zombieFemaleA
+---| 82 zombieFemaleB
+---| 83 zombieFemaleC
+---| 84 zombieFemaleD
+---| 85 zombieFemaleE
+---| 86 zombieFemaleF
+---| 87 zombieFemaleArctic
+---| 88 zombieFemaleFirefighter
+---| 89 zombieFemaleHazmat
+---| 90 zombieFemalePilot
+---| 91 zombieFemalePirate
+---| 92 zombieFemalePolice
+---| 93 zombieFemaleSafari
+---| 94 zombieFemaleSar
+---| 95 zombieFemaleScuba
+---| 96 zombieFemaleSurgeon
+---| 97 buffalo
+---| 98 sheepBighorn
+---| 99 roadrunner
+---| 100 lionMountain
+---| 101 crocodile
+---| 102 coyote
+---| 103 gilaMonster
+---| 104 tortoiseDesert
+
+---**[Requires Industrial Frontier DLC to be enabled]**
+---
+---Spawn an anima/creature at the specified world position
+---@param spawnTf Transform Transform of creature to spawn.
+---@param creatureType CreatureType Type of creature to spawn.
+---@param sizeMultiplier number Size multiplier of creature.
+---@return integer objectId Object ID of spawned creature.
+---@return boolean isSuccess True if function successfully executed.
+function server.spawnCreature(spawnTf, creatureType, sizeMultiplier) end
+---**[Requires Industrial Frontier DLC to be enabled]**
+---
+---Set the next target position for a creature to path towards.
+---@param targetTf integer Object ID of creature to update transform.
+---@param transformMatrix Transform New transform to assign to creature.
+---@return boolean isSuccess True if function successfully executed.
+function server.setCreatureMoveTarget(targetTf, transformMatrix) end
+
+---When specified, values represent third and fourth arguments
+---@alias EquipmentType
+---| 0 none
+---| 1 diving
+---| 2 firefighter
+---| 3 scuba
+---| 4 parachute [int = {0 = deployed, 1 = ready}]
+---| 5 arctic
+---| 29 hazmat
+---| 74 bombDisposal
+---| 75 chestRig
+---| 76 blackHawkVest
+---| 77 plateVest
+---| 78 armorVest
+---|
+---| 6 binoculars
+---| 7 cable
+---| 8 compass
+---| 9 defibrillator [int = charges]
+---| 10 fireExtinguisher [float = ammo]
+---| 11 firstAid [int = charges]
+---| 12 flare [int = charges]
+---| 13 flaregun [int = ammo]
+---| 14 flaregunAmmo [int = ammo]
+---| 15 flashlight [float = battery]
+---| 16 hose [int = {0 = hose off, 1 = hose on}]
+---| 17 nightVisionBinoculars [float = battery]
+---| 18 oxygenMask [float = oxygen]
+---| 19 radio [int = channel] [float = battery]
+---| 20 radioSignalLocator [float = battery]
+---| 21 remoteControl [int = channel] [float = battery]
+---| 22 rope [int = {0 = default length, 1 = 1m, 2 = 2m, 3 = 4m, 4 = 8m, 5 = 16m}]
+---| 23 strobeLight [int = {0 = off, 1 = on}] [float = battery]
+---| 24 strobeLightInfrared [int = {0 = off, 1 = on}] [float = battery]
+---| 25 transponder [int = {0 = off, 1 = on}] [float = battery]
+---| 26 underwaterWeldingTorch [float = charge]
+---| 27 weldingTorch [float = charge]
+---| 28 coal
+---| 30 radiationDetector [float = battery]
+---| 31 c4 [int = ammo]
+---| 32 c4Detonator
+---| 33 speargun [int = ammo]
+---| 34 speargunAmmo
+---| 35 pistol [int = ammo]
+---| 36 pistolAmmo
+---| 37 smg [int = ammo]
+---| 38 smgAmmo
+---| 39 rifle [int = ammo]
+---| 40 rifleAmmo
+---| 41 grenade [int = ammo]
+---| 42 machineGunAmmoBoxK
+---| 43 machineGunAmmoBoxHe
+---| 44 machineGunAmmoBoxHeFrag
+---| 45 machineGunAmmoBoxAp
+---| 46 machineGunAmmoBoxI
+---| 47 lightAutoAmmoBoxK
+---| 48 lightAutoAmmoBoxHe
+---| 49 lightAutoAmmoBoxHeFrag
+---| 50 lightAutoAmmoBoxAp
+---| 51 lightAutoAmmoBoxI
+---| 52 rotaryAutoAmmoBoxK
+---| 53 rotaryAutoAmmoBoxHe
+---| 54 rotaryAutoAmmoBoxHeFrag
+---| 55 rotaryAutoAmmoBoxAp
+---| 56 rotaryAutoAmmoBoxI
+---| 57 heavyAutoAmmoBoxK
+---| 58 heavyAutoAmmoBoxHe
+---| 59 heavyAutoAmmoBoxHeFrag
+---| 60 heavyAutoAmmoBoxAp
+---| 61 heavyAutoAmmoBoxI
+---| 62 battleShellK
+---| 63 battleShellHe
+---| 64 battleShellHeFrag
+---| 65 battleShellAp
+---| 66 battleShellI
+---| 67 artilleryShellK
+---| 68 artilleryShellHe
+---| 69 artilleryShellHeFrag
+---| 70 artilleryShellAp
+---| 71 artilleryShellI
+---| 72 glowstick
+---| 73 dogWhistle
+
+---Spawns an equipment item dynamic object.
+---@param spawnTf Transform Transform of equipment to spawn.
+---@param equipmentType EquipmentType Equipment type to spawn.
+---@param int? integer Optional argument for specified equipment types.
+---@param float? number Optional argument for specified equipment types.
+---@return integer ObjectId Object ID of spawned equipment.
+---@return boolean isSuccess True if function successfully executed.
+function server.spawnEquipment(spawnTf, equipmentType, int, float) end
+---Despawn the specified object when it is out of a player's range.
+---@param objectId integer ID of object to delete.
+---@param isInstant boolean Set to true if object should be despawned immediately even if player is outside of render range.
+---@return boolean isSuccess True if function successfully executed.
+function server.despawnObject(objectId, isInstant) end
+---Get the world position of a specified object. isSuccess return false if the object cannot be found.
+---@param objectId integer ID of object get transform of.
+---@return Transform tf Current transform of object.
+---@return boolean isSuccess True if function successfully executed.
+function server.getObjectPos(objectId) end
+---Get the simulating state of a specified object. isSuccess return false if the object cannot be found.
+---@param objectId integer ID of object to get simulation state of.
+---@return boolean isSimulating True if object is simulating.
+---@return boolean isSuccess True if function successfully executed.
+function server.getObjectSimulating(objectId) end
+---Set the world position of a specified object. isSuccess return false if the object cannot be found.
+---@param objectId integer Object ID to update transform of.
+---@param newTf Transform New transform to assign.
+---@return boolean isSuccess True if function successfully executed.
+function server.setObjectPos(objectId, newTf) end
+---Set data for an existing world fire using its objectID.
+---@param objectId integer ID of object to set fire data to.
+---@param isLit boolean Set to true if the fire should produce light.
+---@param isExplosive boolean Set to true if there should be an explosion.
+function server.setFireData(objectId, isLit, isExplosive) end
+---Get data for a world fire using its objectID.
+---@param objectID integer Object ID to get fire data of.
+---@return boolean isLit True if fire produces light.
+---@return boolean isSuccess True if function successfully executed.
+function server.getFireData(objectID) end
+---Kills the target character.
+---@param objectId integer Object ID of character to kill.
+function server.killCharacter(objectId) end
+---Revives the target character.
+---@param objectId integer Object ID of character to revive.
+function server.reviveCharacter(objectId) end
+---Sets the target character (or sit-able creature) to be seated in the first seat with the specified name found on the specified vehicle.
+---
+---@see server.setCharacterSeated Alternative method name.
+---@see server.setCreatureSeated Alternative method name.
+---@param objectId integer Object ID to set seated state of.
+---@param vehicleId integer Vehicle ID to set seated state of.
+---@param seatName string Seat name of vehicle object should sit in.
+---@overload fun(objectId: integer, vehicleId: integer, x: number, y: number, z: number)
+function server.setSeated(objectId, vehicleId, seatName) end
+---Sets the target character (or sit-able creature) to be seated in the first seat with the specified name found on the specified vehicle.
+---
+---@see server.setSeated Alternative method name.
+---@see server.setCreatureSeated Alternative method name.
+---@param objectId integer Object ID to set seated state of.
+---@param vehicleId integer Vehicle ID to set seated state of.
+---@param seatName string
+---@overload fun(objectId: integer, vehicleId: integer, x: number, y: number, z: number)
+function server.setCharacterSeated(objectId, vehicleId, seatName) end
+---Sets the target character (or sit-able creature) to be seated in the first seat with the specified name found on the specified vehicle.
+---
+---@see server.setSeated Alternative method name.
+---@see server.setCharacterSeated Alternative method name.
+---@param objectId integer Object ID to set seated state of.
+---@param vehicleId integer Vehicle ID to set seated state of.
+---@param seatName string Seat name of vehicle object should sit in.
+---@overload fun(objectId: integer, vehicleId: integer, x: number, y: number, z: number)
+function server.setCreatureSeated(objectId, vehicleId, seatName) end
+
+---@class ObjectData
+---@field object_type ObjectType Type of object.
+---@field hp number Health of object.
+---@field incapacitated boolean True if object is incapacitated.
+---@field dead boolean True if object is dead.
+---@field interactable boolean True if object is interactable.
+---@field ai boolean True if object is AI.
+---@field name string Name of object.
+---@field creature_type CreatureType Type of creature.
+---@field scale number Scale of object.
+
+---Get character data for a specified character object. Returns a table if successful or nil upon failure.
+---@param objectId integer Object ID to get data of.
+---@return ObjectData|nil objectData Object data if successful.
+function server.getObjectData(objectId) end
+---Get character data for a specified character object. Returns a table if successful or nil upon failure.
+---@param objectId integer Object ID to get character data of.
+---@return ObjectData objectData Object data if successful.
+function server.getCharacterData(objectId) end
+---Get the current vehicleID for a specified character object.
+---@param vehicleID integer Object ID to get vehicle of.
+---@return integer vehicleId Vehicle ID of object.
+---@return boolean isSuccess True if function successfully executed.
+function server.getCharacterVehicle(vehicleID) end
+---Sets the display name for a non-player character.
+---@param objectId integer Object ID to set character tooltip of.
+---@param displayName string Tooltip to set.
+function server.setCharacterTooltip(objectId, displayName) end
+---Sets the display name for a non-player creature.
+---@param objectId integer Object ID to set creature tooltip to.
+---@param displayName string Tooltip to set.
+function server.setCreatureTooltip(objectId, displayName) end
+
+---@alias SlotNumber
+---| 1 Large Equipment Slot
+---| 2 Small Equipment Slot 1
+---| 3 Small Equipment Slot 2
+---| 4 Small Equipment Slot 3
+---| 5 Small Equipment Slot 4
+---| 6 Small Equipment Slot 5
+---| 7 Small Equipment Slot 6
+---| 8 Small Equipment Slot 7
+---| 9 Small Equipment Slot 8
+---| 10 Outfit Slot
+
+---Set the item slot data for a specified character object. Certain equipments hold data that can be initialized as detailed.
+---@param objectId integer Object ID to set equipment of.
+---@param slotNumber SlotNumber Slot to set.
+---@param equipmentType EquipmentType Equipment to set.
+---@param isActive boolean If equipment should be active on set.
+---@param integerValue? integer Optional value of equipment.
+---@param floatValue? number Optional value of equipment.
+---@return boolean isSuccess True if function successfully executed.
+function server.setCharacterItem(objectId, slotNumber, equipmentType, isActive, integerValue, floatValue) end
+---Get the item in the specified slot for a specified character object.
+---@param objectId integer Object ID to get character equipment of.
+---@param slotNumber SlotNumber Slot to get.
+---@return EquipmentType equipmentType Equipment held in slot.
+---@return boolean isSuccess True if function successfully executed.
+function server.getCharacterItem(objectId, slotNumber) end

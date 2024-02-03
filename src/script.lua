@@ -78,7 +78,6 @@ awaitingHttpResponse = false
 ---@param data table
 function makeHttpRequest(data)
     local JSON = serializeTableToJSON(data)
-    server.announce("what the fuck", #JSON)
     local possibleHttpRequestsData = {}
 
     while string.len(JSON) > 0 do
@@ -109,8 +108,6 @@ function tickHttpManager()
 
     server.announce("[Ref Helper]", "sending")
 	--server.announce("[test]", httpQueue[1])
-    server.announce("[A]", #httpQueue)
-	server.announce("[B]", #httpQueue[1])
     server.httpGet(3000, "/send?d=" .. httpQueue[1])
 	table.remove(httpQueue, 1)
 end
