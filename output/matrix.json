@@ -1,0 +1,16 @@
+{
+	"table": {
+		"translation": "_function",
+		"distance": "_function",
+		"rotationZ": "_function",
+		"identity": "_function",
+		"invert": "_function",
+		"rotationX": "_function",
+		"transpose": "_function",
+		"multiplyXYZW": "_function",
+		"position": "_function",
+		"rotationToFaceXZ": "_function",
+		"multiply": "_function",
+		"rotationY": "_function"
+	}
+}
