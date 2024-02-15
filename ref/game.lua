@@ -45,6 +45,10 @@ function server.getVolcanos() end
 ---@param checkAtPosition Transform Tf of where to check for oil spill.
 ---@return number oilAmount Quantity of oil spilled.
 function server.getOilSpill(checkAtPosition) end
+---Sets the oil spill amount at the target location, the amount is blended across nearby tiles.
+---@param tf Transform
+---@param amount number
+function server.setOilSpill(tf, amount) end
 ---Sets the oil spill amount at the target location, this amount is blended across nearby tiles.
 ---@param position Transform Tf of where to set oil spill amount.
 ---@param magnitude number Magnitude of oil spill.
@@ -90,10 +94,7 @@ function server.spawnExplosion(position, magnitude) end
 ---@param gameSetting GameSettingsEnum GameSetting to set.
 ---@param value boolean|number New value of gameSetting.
 function server.setGameSetting(gameSetting, value) end
----Returns a table of game settings indexed by the GameSetting string. May be accessed inline: 
----```lua
----server.getGameSettings().thirdPerson
----```
+---Returns a table of game settings indexed by the GameSetting string. May be accessed inline: `server.getGameSettings().thirdPerson`
 ---@return GameSettings gameSettings Table of all gamesettings
 function server.getGameSettings() end
 
@@ -277,3 +278,7 @@ function server.pathfindOcean(startTf, endTf) end
 ---Returns a table of underground oil deposit positions.
 ---@return {x: number, y: number, z: number, r: number, oil: number}[] oilDeposits Table of existing oil deposits.
 function server.getOilDeposits() end
+
+---@deprecated Used before you could access individual tiles. Do not use anymore.
+---@see server.getStartTile
+function server.getStartIsland() end

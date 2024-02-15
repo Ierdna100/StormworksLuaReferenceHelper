@@ -18,6 +18,33 @@ function server.getAddonIndex(name) end
 ---@return integer locationIndex Index of the location.
 ---@return boolean isSuccess True if function successfully executed.
 function server.getLocationIndex(addonIndex, name) end
+---@see server.spawnAddonLocation
+---@see server.spawnNamedAddonLocation
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.spawnMissionLocation() end
+---@see server.spawnAddonLocation
+---@see server.spawnNamedAddonLocation
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.spawnThisAddonLocation() end
+---@see server.spawnAddonLocation
+---@see server.spawnNamedAddonLocation
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.spawnThisPlaylistMissionLocation() end
+---@see server.getAddonData
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.getPlaylistData() end
+---@see server.getAddonIndex
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.getPlaylistIndexCurrent() end
+---@see server.getAddonCount
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.getPlaylistCount() end
+---@see server.getAddonIndex
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.getPlaylistIndexByName() end
+---@see server.getAddonPath
+---@deprecated Used before addons were reworked. Do not use anymore.
+function server.getPlaylistPath() end
 ---Directly spawn a location by name from the current addon, optional world transform parameter - otherwise spawns at first tile of the location type
 ---@param name string Name of the addon location
 ---@param spawnTf? Transform Spawn coordinates.
@@ -143,3 +170,7 @@ function server.getLocationComponentData(addonIndex, locationIndex, componentInd
 ---@return Component component Component data.
 ---@return boolean isSuccess True if function successfully executed.
 function server.spawnAddonComponent(spawnTf, addonIndex, locationIndex, componentIndex, parentVehicleId) end
+
+---@deprecated Used before addons were reworked. Do not use this.
+---@see server.spawnAddonComponent
+function server.spawnMissionComponent() end

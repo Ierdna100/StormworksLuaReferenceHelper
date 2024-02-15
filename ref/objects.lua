@@ -506,3 +506,11 @@ function server.setCharacterItem(objectId, slotNumber, equipmentType, isActive, 
 ---@return EquipmentType equipmentType Equipment held in slot.
 ---@return boolean isSuccess True if function successfully executed.
 function server.getCharacterItem(objectId, slotNumber) end
+
+---Set character data for a specified character object. Non-interactable characters are frozen in place and cannot be moved. 
+---`isInteractable` has no effect on Player characters
+---@param objectId integer
+---@param health number
+---@param isInteractable boolean
+---@param isAi boolean
+function server.setCharacterData(objectId, health, isInteractable, isAi) end

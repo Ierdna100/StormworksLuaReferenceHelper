@@ -1,0 +1,19 @@
+{
+	"server": [
+		"spawnVehicleSavefile",
+		"spawnMissionLocation",
+		"spawnThisAddonLocation",
+		"spawnThisPlaylistMissionLocation",
+		"getPlaylistData",
+		"setOilSpill",
+		"getStartIsland",
+		"getPlaylistIndexCurrent",
+		"setCharacterData",
+		"getPlaylistCount",
+		"spawnMissionComponent",
+		"getPlaylistIndexByName",
+		"getPlaylistPath"
+	],
+	"property": [],
+	"matrix": []
+}

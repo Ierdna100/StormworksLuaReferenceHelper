@@ -9,6 +9,9 @@
 ---@return boolean isSuccess True if function successfully executed.
 ---@return integer[] groupVehicles All vehicles in this group
 function server.spawnAddonVehicle(spawnTf, addonIndex, componentId) end
+---@deprecated Used before spawnVehicle() existed. Do not use anymore
+---@see server.spawnVehicle
+function server.spawnVehicleSavefile() end
 ---Spawns a vehicle from local appdata using its filename.
 ---@param spawnTf Transform Transform of where to spawn vehicle.
 ---@param saveName string Name of vehicle on disk to spawn.
@@ -401,9 +404,9 @@ function server.setVehicleWeapon(vehicleId, name, amount) end
 ---@param voxelY1 number Voxel Y-value of rope connection point in first vehicle.
 ---@param voxelZ1 number Voxel Z-value of rope connection point in first vehicle.
 ---@param vehicleId2 integer Vehicle ID of second vehicle to connect rope to.
----@param voxelX2 number Voxel X-value of rope connection point in first vehicle.
----@param voxelY2 number Voxel Y-value of rope connection point in first vehicle.
----@param voxelZ2 number Voxel Z-value of rope connection point in first vehicle.
+---@param voxelX2 number Voxel X-value of rope connection point in second vehicle.
+---@param voxelY2 number Voxel Y-value of rope connection point in second vehicle.
+---@param voxelZ2 number Voxel Z-value of rope connection point in second vehicle.
 ---@param length number Length of rope to set.
 ---@param ropeType RopeType Type of rope to set.
 function server.spawnVehicleRope(

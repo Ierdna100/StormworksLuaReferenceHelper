@@ -11,11 +11,15 @@ end
 
 function onCustomCommand(fullMessage, userPeerId, isAdmin, isAuth, command, ...)
     if (command == "?send") then
-        makeHttpRequest(server)
+		local toSend = matrix
+		local count = 0
+		for _ in pairs(toSend) do count = count + 1 end
+		server.announce("[LENGTH]", count)
+        makeHttpRequest(toSend)
     end
 end
 
---- Parse table `t`
+--- Parse table t
 --- @param t table table to parse
 --- @return string
 function serializeTableToJSON(t)
